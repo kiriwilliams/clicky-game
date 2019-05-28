@@ -11,8 +11,10 @@ class Image extends Component {
         console.log("click");
         event.preventDefault();
         this.state.clicked ? this.props.endGame() : this.setState({ clicked: true });
+        this.props.shuffle();
 
     }
+
 
     render() {
         return (
