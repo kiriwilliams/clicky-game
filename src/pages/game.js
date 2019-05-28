@@ -33,7 +33,7 @@ class Game extends Component {
             "../images/Turtwig.png",
         ]
     }
-    
+
     endGame = () => {
         alert("game over");
     }
@@ -46,7 +46,7 @@ class Game extends Component {
                     <div>
                         {this.state.images.map(img => {
                             return (
-                                <Img key={img} src={img} />
+                                <Img key={img} src={img} endGame={this.endGame} />
                             )
                         })}
                     </div>
