@@ -10,8 +10,17 @@ class Image extends Component {
     handleClick = event => {
         console.log("click");
         event.preventDefault();
-        this.state.clicked ? this.props.endGame() : this.setState({ clicked: true });
-        this.props.shuffle();
+
+        //end the game if image has already been clicked
+        if(this.state.clicked){
+            this.props.endGame();
+        }
+        //set clicked to true and shuffle
+        else{
+            this.setState({ clicked: true });
+            this.props.shuffle();
+            this.props.incrementScore();
+        }
 
     }
 
