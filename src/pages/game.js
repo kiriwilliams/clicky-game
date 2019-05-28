@@ -6,6 +6,8 @@ import Img from "../components/img";
 class Game extends Component {
     state = {
         play: true,
+        currentScore: 0,
+        highScore: 0,
         images: [
             "../images/Bulbasaur.png",
             "../images/Charmander.png",
@@ -42,38 +44,48 @@ class Game extends Component {
         //Fisher-Yates (aka Knuth) Shuffle.
         function shuffle(array) {
             var currentIndex = array.length, temporaryValue, randomIndex;
-          
+
             // While there remain elements to shuffle...
             while (0 !== currentIndex) {
-          
-              // Pick a remaining element...
-              randomIndex = Math.floor(Math.random() * currentIndex);
-              currentIndex -= 1;
-          
-              // And swap it with the current element.
-              temporaryValue = array[currentIndex];
-              array[currentIndex] = array[randomIndex];
-              array[randomIndex] = temporaryValue;
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
             }
-          
+
             return array;
-          }
-        this.setState({images: shuffle(this.state.images)});
+        }
+        this.setState({ images: shuffle(this.state.images) });
     }
 
-    
+    incrementScore = () => {
+        this.setState({ currentScore: this.state.currentScore + 1 })
+    }
+
 
 
     render() {
         return (
-            <div className="row">
-                <div className="col-12">
-                    <div>
-                        {this.state.images.map(img => {
-                            return (
-                                <Img key={img} src={img} endGame={this.endGame} shuffle={this.shuffle} />
-                            )
-                        })}
+            <div>
+                <div className="row">
+                    <div className="col-12">
+                        Score: <span>{this.state.currentScore}</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <div>
+                            {this.state.images.map(img => {
+                                return (
+                                    <Img key={img} src={img} endGame={this.endGame} shuffle={this.shuffle} incrementScore={this.incrementScore} />
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
