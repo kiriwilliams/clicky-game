@@ -38,6 +38,31 @@ class Game extends Component {
         alert("game over");
     }
 
+    shuffle = () => {
+        //Fisher-Yates (aka Knuth) Shuffle.
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+          
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+          
+              // Pick a remaining element...
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex -= 1;
+          
+              // And swap it with the current element.
+              temporaryValue = array[currentIndex];
+              array[currentIndex] = array[randomIndex];
+              array[randomIndex] = temporaryValue;
+            }
+          
+            return array;
+          }
+        this.setState({images: shuffle(this.state.images)});
+    }
+
+    
+
 
     render() {
         return (
@@ -46,7 +71,7 @@ class Game extends Component {
                     <div>
                         {this.state.images.map(img => {
                             return (
-                                <Img key={img} src={img} endGame={this.endGame} />
+                                <Img key={img} src={img} endGame={this.endGame} shuffle={this.shuffle} />
                             )
                         })}
                     </div>
