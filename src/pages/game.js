@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Tile from "../components/tile";
 import Img from "../components/img";
 
-import bulbasaur from "../images/Bulbasaur.png";
 
 class Game extends Component {
     state = {
@@ -39,11 +38,6 @@ class Game extends Component {
         alert("game over");
     }
 
-    handleClick = event => {
-        event.preventDefault();
-        this.clicked ? Game.endGame() : this.setState({ clicked: true });
-
-    }
 
     render() {
         return (
