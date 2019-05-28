@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Game from "../pages/game";
+
+
 
 class Image extends Component {
     state = {
@@ -9,7 +10,7 @@ class Image extends Component {
     handleClick = event => {
         console.log("click");
         event.preventDefault();
-        this.clicked ? Game.endGame() : this.setState({ clicked: true });
+        this.state.clicked ? this.props.endGame() : this.setState({ clicked: true });
 
     }
 
