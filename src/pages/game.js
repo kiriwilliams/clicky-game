@@ -54,18 +54,20 @@ class Game extends Component {
         let pokeArray = this.state.pokemon;
 
         const id = event.target.getAttribute("id");
-        let poke = pokeArray.find(poke => {
+        let clickedPokemon = pokeArray.find(poke => {
             return poke.id === parseInt(id)
         });
+        
 
         //end the game if image has already been clicked
-        if(event.target.clicked){
-            this.props.endGame();
+        if(clickedPokemon.clicked){
+            this.endGame();
         }
         //set clicked to true and shuffle
         else{
+            clickedPokemon.clicked = true;
             // event.target.setState({ clicked: true });
-            this.setState({pokemon})
+            this.setState({pokemon: pokeArray})
             this.shuffle();
             this.incrementScore();
         }
