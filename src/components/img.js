@@ -7,6 +7,9 @@ class Image extends Component {
         clicked: false,
         src: this.props.src
     }
+    
+    
+
     handleClick = event => {
         console.log("click");
         event.preventDefault();
@@ -24,10 +27,9 @@ class Image extends Component {
 
     }
 
-
     render() {
         return (
-            <img src={this.props.src} alt={this.props.src} onClick={this.handleClick}></img> 
+            <img src={this.props.src} id={this.props.id} alt={this.props.src} onClick={this.props.handleClick}></img> 
         )
     }
 
