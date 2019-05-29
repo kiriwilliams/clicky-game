@@ -7,7 +7,6 @@ import pokemon from "../pokemon.json";
 
 class Game extends Component {
     state = {
-        reset: false,
         currentScore: 0,
         highScore: 0,
         pokemon: pokemon
@@ -19,7 +18,11 @@ class Game extends Component {
             this.setState({highScore: this.state.currentScore });
         }
         this.setState({ currentScore: 0 });
-        this.setState({ reset: true });
+
+        let updatePokemon = this.state.pokemon;
+        updatePokemon.forEach(pokemon => pokemon.clicked = false);
+        this.setState({ pokemon: updatePokemon});
+        this.shuffle();
     }
 
     shuffle = () => {
