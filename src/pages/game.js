@@ -51,11 +51,13 @@ class Game extends Component {
 
     handleClick = event => {
         event.preventDefault();
+        let pokeArray = this.state.pokemon;
+
         const id = event.target.getAttribute("id");
-        const data = this.state.pokemon.find(poke => {
+        let poke = pokeArray.find(poke => {
             return poke.id === parseInt(id)
         });
-        console.log(data);
+
         //end the game if image has already been clicked
         if(event.target.clicked){
             this.props.endGame();
@@ -63,6 +65,7 @@ class Game extends Component {
         //set clicked to true and shuffle
         else{
             // event.target.setState({ clicked: true });
+            this.setState({pokemon})
             this.shuffle();
             this.incrementScore();
         }
