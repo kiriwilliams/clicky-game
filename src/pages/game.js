@@ -1,43 +1,25 @@
 import React, { Component } from "react";
 import Tile from "../components/tile";
 import Img from "../components/img";
+import Nav from "../components/nav";
+import pokemon from "../pokemon.json";
 
 
 class Game extends Component {
     state = {
-        play: true,
+        reset: false,
         currentScore: 0,
         highScore: 0,
-        images: [
-            "../images/Bulbasaur.png",
-            "../images/Charmander.png",
-            "../images/Chespin.png",
-            "../images/Chikorita.png",
-            "../images/Chimchar.png",
-            "../images/Cyndaquil.png",
-            "../images/Fennekin.png",
-            "../images/Froakie.png",
-            "../images/Grookey.png",
-            "../images/Litten.png",
-            "../images/Mudkip.png",
-            "../images/Oshawott.png",
-            "../images/Piplup.png",
-            "../images/Popplio.png",
-            "../images/Rowlet.png",
-            "../images/Scorbunny.png",
-            "../images/Snivy.png",
-            "../images/Sobble.png",
-            "../images/Squirtle.png",
-            "../images/Tepig.png",
-            "../images/Torchic.png",
-            "../images/Totodile.png",
-            "../images/Treecko.png",
-            "../images/Turtwig.png",
-        ]
+        pokemon: pokemon
     }
 
     endGame = () => {
         alert("game over");
+        if(this.state.currentScore > this.state.highScore){
+            this.setState({highScore: this.state.currentScore });
+        }
+        this.setState({ currentScore: 0 });
+        this.setState({ reset: true });
     }
 
     shuffle = () => {
@@ -60,11 +42,31 @@ class Game extends Component {
 
             return array;
         }
-        this.setState({ images: shuffle(this.state.images) });
+        this.setState({ pokemon: shuffle(this.state.pokemon) });
     }
 
     incrementScore = () => {
         this.setState({ currentScore: this.state.currentScore + 1 })
+    }
+
+    handleClick = event => {
+        event.preventDefault();
+        const id = event.target.getAttribute("id");
+        const data = this.state.pokemon.find(poke => {
+            return poke.id === parseInt(id)
+        });
+        console.log(data);
+        //end the game if image has already been clicked
+        if(event.target.clicked){
+            this.props.endGame();
+        }
+        //set clicked to true and shuffle
+        else{
+            // event.target.setState({ clicked: true });
+            this.shuffle();
+            this.incrementScore();
+        }
+
     }
 
 
@@ -74,15 +76,15 @@ class Game extends Component {
             <div>
                 <div className="row">
                     <div className="col-12">
-                        Score: <span>{this.state.currentScore}</span>
+                    <Nav currentScore={this.state.currentScore} highScore={this.state.highScore}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
                         <div>
-                            {this.state.images.map(img => {
+                            {this.state.pokemon.map(pokemon => {
                                 return (
-                                    <Img key={img} src={img} endGame={this.endGame} shuffle={this.shuffle} incrementScore={this.incrementScore} />
+                                    <Img key={pokemon.id} id={pokemon.id} src={pokemon.src} handleClick={this.handleClick} endGame={this.endGame} shuffle={this.shuffle} incrementScore={this.incrementScore} reset={this.reset} />
                                 )
                             })}
                         </div>
@@ -94,3 +96,28 @@ class Game extends Component {
 }
 
 export default Game;
+
+// "../images/Bulbasaur.png",
+//             "../images/Charmander.png",
+//             "../images/Chespin.png",
+//             "../images/Chikorita.png",
+//             "../images/Chimchar.png",
+//             "../images/Cyndaquil.png",
+//             "../images/Fennekin.png",
+//             "../images/Froakie.png",
+//             "../images/Grookey.png",
+//             "../images/Litten.png",
+//             "../images/Mudkip.png",
+//             "../images/Oshawott.png",
+//             "../images/Piplup.png",
+//             "../images/Popplio.png",
+//             "../images/Rowlet.png",
+//             "../images/Scorbunny.png",
+//             "../images/Snivy.png",
+//             "../images/Sobble.png",
+//             "../images/Squirtle.png",
+//             "../images/Tepig.png",
+//             "../images/Torchic.png",
+//             "../images/Totodile.png",
+//             "../images/Treecko.png",
+//             "../images/Turtwig.png",
